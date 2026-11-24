@@ -1,8 +1,8 @@
-# Nastavení pro Netlify (hosting).
-# Netlify si tenhle soubor přečte při každém nasazení (po každém pushi na GitHub).
+# nastaveni pro netlify
+# netlify si to precte pri kazdym deployi (po kazdym pushi na github)
 
 [build]
-  # Složka, kterou Netlify zveřejní na webu.
-  # "." = kořen repozitáře, tedy tam, kde leží index.html.
-  # Build příkaz tu není – je to čisté HTML, není co kompilovat.
+  # slozka co se ma dat na web
+  # "." = root repa, tam kde je index.html
+  # build prikaz tu neni protoze je to jen html, neni co buildit
   publish = "."
