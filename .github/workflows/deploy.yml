@@ -1,0 +1,38 @@
+# ci/cd - po kazdym pushi na main se web sam nahraje na netlify
+# vysledek kazdyho spusteni je videt na githubu v zalozce Actions
+name: Deploy na Netlify
+
+on:
+  # spusti se po pushi do vetve main
+  push:
+    branches: [main]
+  # a jde to spustit i rucne tlacitkem "Run workflow" v Actions
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    # github na to pujci cisty linux server
+    runs-on: ubuntu-latest
+
+    # environment na githubu, kde jsou ulozeny secrets (Settings -> Environments)
+    # url se pak ukaze na githubu u repa v sekci Deployments
+    environment:
+      name: NETLIFY_AUTH_TOKEN
+      url: https://web-test-334q.netlify.app
+
+    steps:
+      # 1) stahne kod z repa na ten server
+      - name: Stazeni kodu
+        uses: actions/checkout@v4
+
+      # 2) nahraje slozku na netlify pres jejich oficialni nastroj (netlify cli)
+      #    --dir=.     nahraje root repa (tam je index.html)
+      #    --prod      rovnou na ostrej web, ne jen nahled
+      #    --no-build  nic se nebuildi, je to jen html
+      - name: Nahrani na Netlify
+        run: npx netlify-cli@27 deploy --dir=. --prod --no-build
+        env:
+          # token a id webu se berou z toho environmentu nahore
+          # do kodu se nepisou, aby je nikdo nevidel
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
