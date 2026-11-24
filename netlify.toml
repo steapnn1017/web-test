@@ -1,8 +1,0 @@
-# nastaveni pro netlify
-# netlify si to precte pri kazdym deployi (po kazdym pushi na github)
-
-[build]
-  # slozka co se ma dat na web
-  # "." = root repa, tam kde je index.html
-  # build prikaz tu neni protoze je to jen html, neni co buildit
-  publish = "."
